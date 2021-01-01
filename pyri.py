@@ -1,3 +1,18 @@
+import speech_recognition as sr
+import pyttsx3
+import webbrowser
+import unicodedata
+from functions import strip_accents_spain, slice_text, make_notification
+from datetime import datetime
+from constants import KEY, PLAY_WORDS, REMINDER_WORDS, SEARCH_WORDS
+from collections import namedtuple
+
+engine = pyttsx3.init()
+engine.setProperty('voice', 'spanish')
+engine.setProperty('volume', 1)
+
+Reminder = namedtuple('Reminder', 'task time')
+
 class Pyri:
     def __init__(self):
         self.recognizer = sr.Recognizer()
@@ -17,7 +32,7 @@ class Pyri:
                 print(response)
                 if keywords == KEY:
                     # self.speak('¿En qué puedo ayudarte?')
-                    return command
+                    return strip_accents_spain(command)
         except sr.WaitTimeoutError:
             pass
         except sr.UnknownValueError:
@@ -30,16 +45,16 @@ class Pyri:
         engine.runAndWait()
 
     def is_find_command(self, command):
-        if command.split(' ')[0] in SEARCH_WORDS:
+        if command.split(' ')[0] in set(map(strip_accents_spain, SEARCH_WORDS)):
             return True
 
     def is_play_command(self, command):
-        if command.split(' ')[0] in PLAY_WORDS:
+        if command.split(' ')[0] in set(map(strip_accents_spain, PLAY_WORDS)):
             return True
 
     def is_reminder_command(self, command):
-        if command.split(' ')[0] in REMINDER_WORDS:
-            return True
+      if command.split(' ')[0] in set(map(strip_accents_spain, REMINDER_WORDS)):
+        return True
 
     def analyze_command(self, command):
         try:
@@ -53,6 +68,7 @@ class Pyri:
                 self.speak('Ábriendo YouTube')
                 webbrowser.open('https://www.youtube.com')
             elif self.is_reminder_command(command):
+                print('aqui')
                 command_without_keywork = slice_text(command, 1)
                 if command_without_keywork.startswith('a las'):
                     command_without_keywork = slice_text(command_without_keywork, 2)
