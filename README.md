@@ -30,6 +30,8 @@ Pyri is a virtual assistance that helps you with your tasks.
 pip3 install pyttsx3
 pip3 install SpeechRecognition
 pip3 install pystray
+pip3 install notify-py
+pip3 install xlib
 ```
 
 ### How works?
