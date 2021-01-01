@@ -15,7 +15,10 @@
 
 <br />
 
-# Pyri
+<div style="display: flex; height: 100px">
+  <h1>Pyri<h1/>
+  <img src="./assets/image/icon.png" style="height:100%">
+</div>
 
 Pyri is a virtual assistance that helps you with your tasks.
 
