@@ -25,3 +25,6 @@ def check_reminders(pyri):
         print("I'm working...")
         pyri.check_reminders()
         time.sleep(1)
+
+def close():
+  exit()
