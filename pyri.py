@@ -2,7 +2,8 @@ import speech_recognition as sr
 import pyttsx3
 import webbrowser
 import unicodedata
-from functions import strip_accents_spain, slice_text, make_notification
+from pynotifier import Notification
+from functions import strip_accents_spain, slice_text 
 from datetime import datetime
 from constants import KEY, PLAY_WORDS, REMINDER_WORDS, SEARCH_WORDS
 from collections import namedtuple
@@ -88,7 +89,14 @@ class Pyri:
         if (now.second == 0 or now.second == 0):
             for reminder in self.reminders:
                 if now.minute == reminder.time.minute and now.hour == reminder.time.hour:
-                    print(self.reminders)
                     self.reminders.remove(reminder)
-                    print(self.reminders)
-                    make_notification('Pyri reminder', reminder.task)
+                    self.notify('PYRI REMINDER', reminder.task)
+    
+    def notify(self, title, description, urgency = Notification.URGENCY_NORMAL, duration = 5):
+      Notification(
+        title=title,
+        description=description,
+        # icon_path='path/to/image/file/icon.png', # On Windows .ico is required, on Linux - .png
+        duration=duration,                              # Duration in seconds
+        urgency=urgency
+      ).send()

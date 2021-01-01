@@ -1,6 +1,5 @@
 import time
 import unicodedata
-from pynotifier import Notification
 
 def use_pyri(pyri):
     while True:
@@ -26,12 +25,3 @@ def check_reminders(pyri):
         print("I'm working...")
         pyri.check_reminders()
         time.sleep(1)
-
-def make_notification(title, description, urgency = Notification.URGENCY_NORMAL, duration = 5):
-    Notification(
-        title=title,
-        description=description,
-        # icon_path='path/to/image/file/icon.png', # On Windows .ico is required, on Linux - .png
-        duration=duration,                              # Duration in seconds
-        urgency=urgency
-    ).send()
